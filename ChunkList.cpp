@@ -19,6 +19,9 @@ ChunkList<T>::ChunkList(T *arr, int arrLen) {
         // book keeping is done within the append function
         Append(arr[i]);
     }
+    // at this point, the list has been created
+    // initialize the iterator to start at the beginning of the list
+    iterNode = head;
 }
 
 template<class T>
@@ -181,6 +184,25 @@ bool ChunkList<T>::Contains(T value) {
 
 template<class T>
 T ChunkList<T>::GetIndex(int i) {
+    // if list is empty, throw error
+    if (listLen == 0) {
+        throw EmptyList();
+    }
+
+    // if index provided is out of bounds, throw error
+    if (i < 0 || i > listLen) {
+        throw IndexOutOfBounds();
+    }
+
+    Node* curr = head;
+    while (!curr) {
+        if (curr->len < i) {
+            return curr->values[i];
+        }
+        // at this point, index cannot be found in current node
+        i = i - curr->len;
+        curr = curr->next;
+    }
     return nullptr;
 }
 
