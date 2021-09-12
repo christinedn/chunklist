@@ -5,6 +5,7 @@ template<class T>
 ChunkList<T>::ChunkList() {
     head = nullptr;
     tail = nullptr;
+    listLen = 0;
     iterNode = nullptr;
 }
 
@@ -199,7 +200,7 @@ T ChunkList<T>::GetIndex(int i) {
         if (curr->len < i) {
             return curr->values[i];
         }
-        // at this point, index cannot be found in current node
+        // at this point, index provided cannot be found in current node
         i = i - curr->len;
         curr = curr->next;
     }
@@ -208,17 +209,29 @@ T ChunkList<T>::GetIndex(int i) {
 
 template<class T>
 void ChunkList<T>::ResetIterator() {
-
+    iterNode = head;
+    arrPos = head->values[0];
 }
 
 template<class T>
 T ChunkList<T>::GetNextItem() {
-    return nullptr;
+    if (arrPos >= listLen) {
+        throw IteratorOutOfBounds();
+    }
+    arrPos++;
+    if (arrPos > iterNode->len - 1) {
+        iterNode = iterNode->next;
+    }
+    return iterNode->values[arrPos];
 }
 
 template<class T>
 bool ChunkList<T>::IsEmpty() {
-    return false;
+    bool result = true;
+    if (listLen > 0) {
+        result = false;
+    }
+    return result;
 }
 
 #include "ChunkList.h"
