@@ -34,7 +34,7 @@ public:
     }
 };
 
-class EmptyList {
+    class EmptyList {
 public:
     string Msg() {
         return "List is empty";
