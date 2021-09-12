@@ -10,7 +10,15 @@ ChunkList<T>::ChunkList() {
 
 template<class T>
 ChunkList<T>::ChunkList(T *arr, int arrLen) {
-
+    // "you should initialize the iterator to start at the beginning of the list" (?)
+    if (arrLen < 0) {
+        throw InvalidArrayLength();
+    }
+    listLen = arrLen;
+    for (int i = 0; i < listLen; i++) {
+        // book keeping is done within the append function
+        Append(arr[i]);
+    }
 }
 
 template<class T>
@@ -30,24 +38,11 @@ void ChunkList<T>::Append(T value) {
     // check if head/tail is null??
     // if tail doesnt exist, create a new node and have tail point to it?
     if (!tail) {
-        Node* newNode = new Node(); {
-            tail = newNode;
-            newNode->values[0] = value;
-            // book keeping
-            ++tail->len;
-            ++listLen;
-            ++numChunks;
-            return;
-        }
-    }
-
-    // check if the array is full in the tail node
-    if (tail->listLen == ARRAY_SIZE) { // tail->listLen returns the size of the array in the tail?
-        // make a new node
-        Node* newNode = new Node(); // or Node* newNode;
-        // set newNode to tail
+        Node* newNode = new Node();
         tail = newNode;
-        // put in value into the array at first index
+        // the only time that tail doesn't exist is if no list exists,
+        // therefore once you make a new node, head would be pointing to the same node as tail
+        head = newNode;
         newNode->values[0] = value;
         // book keeping
         ++tail->len;
@@ -55,6 +50,22 @@ void ChunkList<T>::Append(T value) {
         ++numChunks;
         return;
     }
+
+    // check if the array is full in the tail node
+    if (tail->len == ARRAY_SIZE) { // tail->len returns the size of the array in the tail?
+        // make a new node
+        Node* newNode = new Node();
+        // set newNode to tail
+        tail = newNode;
+        // put in value into the array at first index
+        newNode->values[0] = value;
+        // book keeping
+        ++tail->len; // length of new tail is now 1
+        ++listLen;
+        ++numChunks;
+        return;
+    }
+
     // at this point, array in tail node is not full so put the element in the end of the array
     tail->values[listLen-1] = value;
 }
@@ -65,8 +76,8 @@ void ChunkList<T>::Remove(T value) {
     // must preserve the order of list when removing
     // throw an emptyList() error if list is empty
     // edgecases: if head/tail is null, removing from beginning (of array/node), removing from end (of array/node), removing from middle (of array/node),
-    // removing from the tail when tail only has one element, removing from head if head only has one element,
-    // removing from any node if it only has one element, be sure to relink nodes if necessary, should not have any empty nodes in list
+    // removing from the tail when tail only has one element, removing from head if head only has one element, removing from any node if it only has one element
+    // relink nodes if necessary, should not have any empty nodes in list
 
     if (listLen == 0) {
         throw EmptyList();
