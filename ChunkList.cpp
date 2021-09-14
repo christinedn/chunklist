@@ -28,7 +28,7 @@ ChunkList<T>::ChunkList(T *arr, int arrLen) {
 template<class T>
 ChunkList<T>::~ChunkList() {
     // deallocates memory
-    while (!head) {
+    while (head) {
         Node* curr = head;
         head = head->next;
         delete curr;
@@ -40,7 +40,7 @@ void ChunkList<T>::Append(T value) {
     // attempt to add value to the end of the list
     // if the array within the node is full, make a new node
     // check if head/tail is null??
-    // if tail doesnt exist, create a new node and have tail point to it?
+    // if tail doesnt exist, create a new node and have tail point to it
     if (!tail) {
         Node* newNode = new Node();
         tail = newNode;
@@ -139,18 +139,18 @@ void ChunkList<T>::Remove(T value) {
 
 template<class T>
 int ChunkList<T>::GetLength() {
-    int length = 0;
-    // if head is null then there are no elements in the linked list
-    if (!head) {
-        return length;
-    }
-    Node* curr = head;
-    while (!curr) {
-        // iterate through the linked list and count the number of elements
-        length = length + listLen;
-        curr = curr->next;
-    }
-    return length;
+//    int length = 0;
+//    // if head is null then there are no elements in the linked list
+//    if (!head) {
+//        return length;
+//    }
+//    Node* curr = head;
+//    while (!curr) {
+//        // iterate through the linked list and count the number of elements
+//        length = length + curr->len;
+//        curr = curr->next;
+//    }
+    return listLen;
 }
 
 template<class T>
@@ -204,7 +204,6 @@ T ChunkList<T>::GetIndex(int i) {
         i = i - curr->len;
         curr = curr->next;
     }
-    return nullptr;
 }
 
 template<class T>
