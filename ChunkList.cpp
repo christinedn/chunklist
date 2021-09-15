@@ -7,15 +7,21 @@ ChunkList<T>::ChunkList() {
     tail = nullptr;
     listLen = 0;
     iterNode = nullptr;
+    arrPos = 0;
+    numChunks = 0;
 }
 
 template<class T>
-ChunkList<T>::ChunkList(T *arr, int arrLen) {
-    // "you should initialize the iterator to start at the beginning of the list" (?)
+ChunkList<T>::ChunkList(T arr[], int arrLen) {
+    head = nullptr;
+    tail = nullptr;
+    listLen = arrLen;
+    iterNode = nullptr;
+    arrPos = 0;
+    numChunks = 0;
     if (arrLen < 0) {
         throw InvalidArrayLength();
     }
-    listLen = arrLen;
     for (int i = 0; i < listLen; i++) {
         // book keeping is done within the append function
         Append(arr[i]);
@@ -23,6 +29,7 @@ ChunkList<T>::ChunkList(T *arr, int arrLen) {
     // at this point, the list has been created
     // initialize the iterator to start at the beginning of the list
     iterNode = head;
+    arrPos = 0;
 }
 
 template<class T>
@@ -33,36 +40,43 @@ ChunkList<T>::~ChunkList() {
         head = head->next;
         delete curr;
     }
+    head = nullptr;
+    tail = nullptr;
+    listLen = 0;
+    iterNode = nullptr;
+    arrPos = 0;
+    numChunks = 0;
 }
 
 template<class T>
 void ChunkList<T>::Append(T value) {
     // attempt to add value to the end of the list
     // if the array within the node is full, make a new node
-    // check if head/tail is null??
-    // if tail doesnt exist, create a new node and have tail point to it
-    if (!tail) {
-        Node* newNode = new Node();
+    Node* newNode = nullptr;
+    if (head == nullptr) {
+        newNode = new Node();
+        // tail and head pointing to the same node since there is only one node in the list at the moment
         tail = newNode;
-        // the only time that tail doesn't exist is if no list exists,
-        // therefore once you make a new node, head would be pointing to the same node as tail
         head = newNode;
-        newNode->values[0] = value;
+        head->next = nullptr;
+        head->values[0] = value;
         // book keeping
         ++tail->len;
         ++listLen;
         ++numChunks;
         return;
-    }
 
-    // check if the array is full in the tail node
-    if (tail->len == ARRAY_SIZE) { // tail->len returns the size of the array in the tail?
+        // check if the array is full in the tail node
+    } else if (tail->len == ARRAY_SIZE) { // tail->len returns the size of the array in the tail?
         // make a new node
-        Node* newNode = new Node();
+        newNode = new Node();
+        // relink
+        tail->next = newNode;
         // set newNode to tail
         tail = newNode;
+        tail->next = nullptr;
         // put in value into the array at first index
-        newNode->values[0] = value;
+        tail->values[0] = value;
         // book keeping
         ++tail->len; // length of new tail is now 1
         ++listLen;
@@ -71,7 +85,12 @@ void ChunkList<T>::Append(T value) {
     }
 
     // at this point, array in tail node is not full so put the element in the end of the array
-    tail->values[listLen-1] = value;
+    //tail->values[(tail->len)-1] = value;
+    tail->values[tail->len] = value;
+    // book keeping
+    ++listLen;
+    ++tail->len;
+
 }
 
 template<class T>
@@ -92,7 +111,7 @@ void ChunkList<T>::Remove(T value) {
     bool found = false;
     int location;
     // search through array in curr node, if value not found, move on to next node
-    while (!curr) {
+    while (curr != nullptr) {
         for (location = 0; location < curr->len; location++) {
             if (curr->values[location] == value) {
                 // at this point, value is found at location
@@ -139,26 +158,14 @@ void ChunkList<T>::Remove(T value) {
 
 template<class T>
 int ChunkList<T>::GetLength() {
-//    int length = 0;
-//    // if head is null then there are no elements in the linked list
-//    if (!head) {
-//        return length;
-//    }
-//    Node* curr = head;
-//    while (!curr) {
-//        // iterate through the linked list and count the number of elements
-//        length = length + curr->len;
-//        curr = curr->next;
-//    }
     return listLen;
 }
 
 template<class T>
 double ChunkList<T>::LoadFactor() {
     // returns the percentage of the chunkList is actually storing items
-    // throw emptyList() error if list is empty
     if (listLen == 0) {
-        throw EmptyList(); // ??????? syntax
+        throw EmptyList();
     }
     double result = listLen/(numChunks*ARRAY_SIZE);
     return result;
@@ -166,14 +173,14 @@ double ChunkList<T>::LoadFactor() {
 
 template<class T>
 bool ChunkList<T>::Contains(T value) {
-    if (!head) {
+    if (head == nullptr) {
         return false;
     }
     Node* curr = head;
     // this while loop will iterate through the linked list
-    while (!curr) {
+    while (curr != nullptr) {
         // this for loop will iterate through the array within the node
-        for (int i = 0; i < listLen; i++) {
+        for (int i = 0; i < curr->len; i++) {
             if (curr->values[i] == value) {
                 return true;
             }
@@ -226,9 +233,9 @@ T ChunkList<T>::GetNextItem() {
 
 template<class T>
 bool ChunkList<T>::IsEmpty() {
-    bool result = true;
+    bool result = false;
     if (listLen > 0) {
-        result = false;
+        result = true;
     }
     return result;
 }
