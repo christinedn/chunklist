@@ -167,7 +167,7 @@ double ChunkList<T>::LoadFactor() {
     if (listLen == 0) {
         throw EmptyList();
     }
-    double result = listLen/(numChunks*ARRAY_SIZE);
+    double result = (double)listLen/(numChunks*ARRAY_SIZE);
     return result;
 }
 
