@@ -141,7 +141,7 @@ void ChunkList<T>::Remove(T value) {
                 if (curr == tail) {
                     tail = prev;
                     delete curr;
-                    tail->next = nullptr;
+                    tail->next = nullptr; // if you do not set tail->next to nullptr, tail->next could be pointing to a garbage value
                     --numChunks;
                     return;
                 }
