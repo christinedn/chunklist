@@ -200,7 +200,7 @@ T ChunkList<T>::GetIndex(int i) {
     }
 
     // if index provided is out of bounds, throw error
-    if (i < 0 || i > listLen) {
+    if (i < 0 || i >= listLen) { //
         throw IndexOutOfBounds();
     }
 
