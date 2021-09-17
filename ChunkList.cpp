@@ -15,14 +15,14 @@ template<class T>
 ChunkList<T>::ChunkList(T arr[], int arrLen) {
     head = nullptr;
     tail = nullptr;
-    listLen = arrLen;
+    listLen = 0;
     iterNode = nullptr;
     arrPos = 0;
     numChunks = 0;
     if (arrLen < 0) {
         throw InvalidArrayLength();
     }
-    for (int i = 0; i < listLen; i++) {
+    for (int i = 0; i < arrLen; i++) {
         // book keeping is done within the append function
         Append(arr[i]);
     }
@@ -241,5 +241,6 @@ bool ChunkList<T>::IsEmpty() {
 }
 
 #include "ChunkList.h"
+
 
 
