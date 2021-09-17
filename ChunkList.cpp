@@ -6,8 +6,6 @@ ChunkList<T>::ChunkList() {
     head = nullptr;
     tail = nullptr;
     listLen = 0;
-    iterNode = nullptr;
-    arrPos = 0;
     numChunks = 0;
 }
 
@@ -15,10 +13,7 @@ template<class T>
 ChunkList<T>::ChunkList(T arr[], int arrLen) {
     head = nullptr;
     tail = nullptr;
-    //listLen = arrLen;
     listLen = 0;
-    iterNode = nullptr;
-    arrPos = 0;
     numChunks = 0;
     if (arrLen < 0) {
         throw InvalidArrayLength();
@@ -29,8 +24,7 @@ ChunkList<T>::ChunkList(T arr[], int arrLen) {
     }
     // at this point, the list has been created
     // initialize the iterator to start at the beginning of the list
-    iterNode = head;
-    arrPos = 0;
+    ResetIterator();
 }
 
 template<class T>
@@ -43,9 +37,6 @@ ChunkList<T>::~ChunkList() {
     }
     head = nullptr;
     tail = nullptr;
-    listLen = 0;
-    iterNode = nullptr;
-    arrPos = 0;
     numChunks = 0;
 }
 
@@ -223,14 +214,15 @@ void ChunkList<T>::ResetIterator() {
 
 template<class T>
 T ChunkList<T>::GetNextItem() {
-    if (arrPos >= listLen) {
-        throw IteratorOutOfBounds();
-    }
-    arrPos++;
-    if (arrPos > iterNode->len - 1) {
-        iterNode = iterNode->next;
-    }
-    return iterNode->values[arrPos];
+//    if (arrPos >= listLen) {
+//        throw IteratorOutOfBounds();
+//    }
+//    arrPos++;
+//    if (arrPos > iterNode->len - 1) {
+//        iterNode = iterNode->next;
+//    }
+//    return iterNode->values[arrPos];
+return nullptr;
 }
 
 template<class T>
