@@ -15,6 +15,7 @@ template<class T>
 ChunkList<T>::ChunkList(T arr[], int arrLen) {
     head = nullptr;
     tail = nullptr;
+    //listLen = arrLen;
     listLen = 0;
     iterNode = nullptr;
     arrPos = 0;
@@ -140,6 +141,7 @@ void ChunkList<T>::Remove(T value) {
                 if (curr == tail) {
                     tail = prev;
                     delete curr;
+                    tail->next = nullptr;
                     --numChunks;
                     return;
                 }
