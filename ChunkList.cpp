@@ -7,6 +7,8 @@ ChunkList<T>::ChunkList() {
     tail = nullptr;
     listLen = 0;
     numChunks = 0;
+    iterNode = nullptr;
+    arrPos = 0;
 }
 
 template<class T>
@@ -186,7 +188,7 @@ bool ChunkList<T>::Contains(T value) {
 template<class T>
 T ChunkList<T>::GetIndex(int i) {
     // if list is empty, throw error
-    if (listLen == 0) {
+    if (head == nullptr) {
         throw EmptyList();
     }
 
@@ -195,9 +197,17 @@ T ChunkList<T>::GetIndex(int i) {
         throw IndexOutOfBounds();
     }
 
+    /*
+     * while(curr is not at the end of the list) {
+    if (i is less than the curr node length){
+        i is within the curr node array and we can return the element
+    }
+    update the value of i to begin at the next node by subtracting the curr node len
+    update curr to the next node }
+     */
     Node* curr = head;
     while (!curr) {
-        if (curr->len < i) {
+        if (i < curr->len) {
             return curr->values[i];
         }
         // at this point, index provided cannot be found in current node
@@ -209,20 +219,43 @@ T ChunkList<T>::GetIndex(int i) {
 template<class T>
 void ChunkList<T>::ResetIterator() {
     iterNode = head;
-    arrPos = head->values[0];
+    arrPos = 0;
 }
 
 template<class T>
 T ChunkList<T>::GetNextItem() {
-//    if (arrPos >= listLen) {
+    /*
+     * When do you move to the next node?
+    How do you know when you have reached the end of the array of the iterNode?
+    How do you know when you have reached the end of the list?
+     */
+//    if (arrPos > listLen - 1) {
 //        throw IteratorOutOfBounds();
 //    }
-//    arrPos++;
-//    if (arrPos > iterNode->len - 1) {
-//        iterNode = iterNode->next;
-//    }
-//    return iterNode->values[arrPos];
-return nullptr;
+    if (listLen == 0) {
+        throw EmptyList();
+    }
+
+    if (iterNode->next == nullptr && arrPos >= iterNode->len) {
+        throw IteratorOutOfBounds();
+    }
+    T currentItem;
+    // if arrPos is within the same node
+    if (arrPos < iterNode->len) {
+        arrPos++;
+        currentItem = iterNode->values[arrPos-1];
+        //arrPos++;
+        return currentItem;
+        // move onto next node when you have reached the end of the array of the iterNode
+    } else {
+//        if (iterNode == tail) {
+//            throw IteratorOutOfBounds();
+//        }
+        iterNode = iterNode->next;
+        arrPos = 1;
+        currentItem = iterNode->values[arrPos-1];
+        return currentItem;
+    }
 }
 
 template<class T>
