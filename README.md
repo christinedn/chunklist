@@ -31,16 +31,16 @@ previous assignment.
 
 1. ***What is the advantage of the ChunkList approach as opposed to a standard 
   the link list implementation?*** (1 point)
-   > Your answer here
+   > Advantages of the ChunkList approach compared to the standard linked list implementation is that the ChunkList holds an array in each node where as the the standard linked list implementation does not. The ChunkList can store more data.
    
 
 2. ***What would be the implications of increasing the size of ARRAY_SIZE to a 
    very large value?  For example, what if you plan to use this structure to 
    store around 1,000 values and you made ARRAY_SIZE 1,000?***
-   
-   > Your answer here
 
-   
+   > Implications of increasing the size of ARRAY_SIZE to a very large value is that the amount of memory required to store the values would greatly increase. In addition to the pointer that each node would hold, it would also hold 1000 values in each node which would be very costly.
+
+
 3. ***What is the Big O of:*** (1 point each)
    
    | Function | Big O (worst case) |
@@ -50,13 +50,19 @@ previous assignment.
    | GetLength| Your answer here   |
    | GetIndex | Your answer here   |
    | Contains | Your answer here   |  
- 
+
+    >Append - O(1)
+   Remove - O(n)
+   GetLength - O(1)
+   GetIndex - O(n)
+   Contains - O(n)
+
 
 4. ***Compare placing a new element into the *FIRST* available empty space 
    versus placing a new element in the tail chunk. What are the advantages and 
    disadvantages to automatically placing values at the tail node?*** (1 point)
    
-   > Your answer here
+   > Advantages of automatically places values at the tail node is it will always be constant time. Since we have the length of each array within each node, doing values[item] = tail->len would place the value at the end of the tail array. Disadvantages is that you may still have space in the nodes before the tail. Placing a new element in the first available empty space requires you to traverse through the Chunk list to see if the array within the nodes are full which is a disadvantage.
 
 ## Run Configurations
 
