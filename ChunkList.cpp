@@ -197,14 +197,6 @@ T ChunkList<T>::GetIndex(int i) {
         throw IndexOutOfBounds();
     }
 
-    /*
-     * while(curr is not at the end of the list) {
-    if (i is less than the curr node length){
-        i is within the curr node array and we can return the element
-    }
-    update the value of i to begin at the next node by subtracting the curr node len
-    update curr to the next node }
-     */
     Node* curr = head;
     while (!curr) {
         if (i < curr->len) {
