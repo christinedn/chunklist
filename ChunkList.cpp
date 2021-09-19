@@ -243,16 +243,6 @@ T ChunkList<T>::GetNextItem() {
         return currentItem;
     }
 }
-
-template<class T>
-bool ChunkList<T>::IsEmpty() {
-    bool result = false;
-    if (listLen > 0) {
-        result = true;
-    }
-    return result;
-}
-
 #include "ChunkList.h"
 
 
