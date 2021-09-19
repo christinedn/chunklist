@@ -79,7 +79,6 @@ void ChunkList<T>::Append(T value) {
     }
 
     // at this point, array in tail node is not full so put the element in the end of the array
-    //tail->values[(tail->len)-1] = value;
     tail->values[tail->len] = value;
     // book keeping
     ++listLen;
@@ -221,28 +220,23 @@ T ChunkList<T>::GetNextItem() {
     How do you know when you have reached the end of the array of the iterNode?
     How do you know when you have reached the end of the list?
      */
-//    if (arrPos > listLen - 1) {
-//        throw IteratorOutOfBounds();
-//    }
     if (listLen == 0) {
         throw EmptyList();
     }
 
+    // this if statement accounts for the last node
     if (iterNode->next == nullptr && arrPos >= iterNode->len) {
         throw IteratorOutOfBounds();
     }
+
     T currentItem;
-    // if arrPos is within the same node
+    // this if statement accounts for the case that if arrPos is within the same node
     if (arrPos < iterNode->len) {
         arrPos++;
         currentItem = iterNode->values[arrPos-1];
-        //arrPos++;
         return currentItem;
-        // move onto next node when you have reached the end of the array of the iterNode
+        // this else statement moves onto next node when you have reached the end of the array of the iterNode
     } else {
-//        if (iterNode == tail) {
-//            throw IteratorOutOfBounds();
-//        }
         iterNode = iterNode->next;
         arrPos = 1;
         currentItem = iterNode->values[arrPos-1];
