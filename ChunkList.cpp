@@ -197,7 +197,7 @@ T ChunkList<T>::GetIndex(int i) {
     }
 
     Node* curr = head;
-    while (!curr) {
+    while (curr) {
         if (i < curr->len) {
             return curr->values[i];
         }
