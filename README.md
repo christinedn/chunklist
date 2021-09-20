@@ -31,7 +31,7 @@ previous assignment.
 
 1. ***What is the advantage of the ChunkList approach as opposed to a standard 
   the link list implementation?*** (1 point)
-   > Advantages of the ChunkList approach compared to the standard linked list implementation is that the ChunkList holds an array in each node where as the the standard linked list implementation does not. The ChunkList can store more data.
+   > Advantages of the ChunkList approach compared to the standard linked list implementation is that the ChunkList holds an array in each node where as the the standard linked list implementation does not. The ChunkList can store more data in each node.
    
 
 2. ***What would be the implications of increasing the size of ARRAY_SIZE to a 
@@ -62,7 +62,7 @@ previous assignment.
    versus placing a new element in the tail chunk. What are the advantages and 
    disadvantages to automatically placing values at the tail node?*** (1 point)
    
-   > Advantages of automatically places values at the tail node is it will always be constant time. Since we have the length of each array within each node, doing values[item] = tail->len would place the value at the end of the tail array. Disadvantages is that you may still have space in the nodes before the tail. Placing a new element in the first available empty space requires you to traverse through the Chunk list to see if the array within the nodes are full which is a disadvantage.
+   > Advantages of automatically places values at the tail node is it will always be constant time. Since we have the length of each array within each node, doing values[tail->len] = item would place the value at the end of the tail array. Disadvantages is that you may still have space in the nodes before the tail. Placing a new element in the first available empty space requires you to traverse through the Chunk list to see where is the first empty space which is a disadvantage.
 
 ## Run Configurations
 
