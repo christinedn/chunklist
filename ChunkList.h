@@ -15,10 +15,6 @@ const int ARRAY_SIZE = 8;
 // See ChunkList_driver.cpp for an example of how they are used.
 class InvalidArrayLength{
 public:
-    /* Function: Sends out an error
-     * Precondition: An invalid array length
-     * Postcondition: A statement will be printed telling the user that an invalid array length has been used
-     */
     string Msg() {
         return "Invalid array length used for constructor.";
     }
@@ -26,10 +22,6 @@ public:
 
 class IndexOutOfBounds {
 public:
-    /* Function: Sends out an error
-     * Precondition: A valid index
-     * Postcondition: A statement will be printed telling the user that an invalid array length has been used
-     */
     string Msg() {
         return "Index is out of bounds";
     }
@@ -38,20 +30,12 @@ public:
 class IteratorOutOfBounds {
 public:
     string Msg() {
-        /* Function: Sends out an error
-        * Precondition: A iterator that is out of bounds
-        * Postcondition: A statement will be printed telling the user the iterator is out of bounds
-        */
         return "Iterator is out of bounds.  Nothing left to iterate over.";
     }
 };
 
     class EmptyList {
 public:
-    /* Function: Sends out an error
-    * Precondition: List is empty
-    * Postcondition: A statement will be printed telling the user the list is empty
-    */
     string Msg() {
         return "List is empty";
     }
@@ -83,7 +67,7 @@ public:
 
     // Add/remove elements
     /* Function: Appends a value to the end of the list
-    * Precondition: None
+    * Precondition: List must not be full
     * Postcondition: The value will be added to the end of the list
     */
     void Append(T value);
@@ -118,7 +102,7 @@ public:
     * Precondition: List must not be empty and index must be in bounds
     * Postcondition: Returns the value at index i
      * Function throws a "List is empty" error if list is empty
-     * Function throws an "Index is out of bounds" eror if the index is out of bounds
+     * Function throws an "Index is out of bounds" error if the index is out of bounds
     */
     T GetIndex(int i);
     /* Function: Sets the iterator to the first index of the first node in the ChunkList
@@ -126,7 +110,7 @@ public:
     * Postcondition: The iterator will be set to the first index of the first node in the ChunkList
     */
     void ResetIterator();
-    /* Function: Returns the current item and and moves to the next item in the list
+    /* Function: Returns the current item and moves position to the next item in the list
     * Precondition: The next item must exist when user tries to get an item
     * Postcondition: Returns the item
      * Throws an "Iterator is out of bounds.  Nothing left to iterate over" error if there are no more items to iterate over in the ChunkList
