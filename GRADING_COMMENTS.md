@@ -7,9 +7,9 @@
 | Append_Remove_Test |  19    |      AG       |
 | Iterator_Test      |  12    |      AG       |
 | Index_Test         |  11    |      AG       |
-| Commits            |  8     |               |
-| Commenting         |  4     |               |
-| Answer to Questions|  8     |               |
+| Commits            |  8     |      8        | Good
+| Commenting         |  4     |      4        | Good
+| Answer to Questions|  8     |      8        | Good
 
 
 
@@ -17,10 +17,10 @@
 
 | Questions | Points | Points Earned | Comments
 | --------- | ------ | ------------- | -----------------------
-|     1     |   1    |               | 
-|     2     |   1    |               |
-|     3     |   5    |               |
-|     4     |   1    |               |
+|     1     |   1    |      1        | 
+|     2     |   1    |      1        |
+|     3     |   5    |      5        |
+|     4     |   1    |      1        |
 
 
 
